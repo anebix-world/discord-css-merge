@@ -27,7 +27,7 @@ async function fetchCSS(url) {
     const manifestContent = fs.readFileSync('css_manifest.yml', 'utf8');
     const manifestData = yaml.load(manifestContent);
 
-    // Get metadata and snippets
+    // Extract metadata and snippet entries
     const metadata = manifestData.metadata || {};
     let snippets = manifestData.snippets;
     if (!Array.isArray(snippets)) {
@@ -39,18 +39,20 @@ async function fetchCSS(url) {
 
     let mergedCSS = '';
 
-    // Prepend metadata as a comment block if available
+    // Prepend metadata as a JSDoc-style comment block
     if (metadata && Object.keys(metadata).length > 0) {
-      mergedCSS += `/*\n`;
-      if (metadata.name) mergedCSS += ` * ${metadata.name}`;
-      if (metadata.version) mergedCSS += ` v${metadata.version}`;
-      mergedCSS += `\n`;
-      if (metadata.description) mergedCSS += ` * ${metadata.description}\n`;
-      if (metadata.author) mergedCSS += ` * Author: ${metadata.author}\n`;
-      if (metadata.source) mergedCSS += ` * Source: ${metadata.source}\n`;
-      if (metadata.website) mergedCSS += ` * Website: ${metadata.website}\n`;
-      if (metadata.invite) mergedCSS += ` * Invite: ${metadata.invite}\n`;
-      if (metadata.tags) mergedCSS += ` * Tags: ${metadata.tags.join(', ')}\n`;
+      mergedCSS += `/**\n`;
+      if (metadata.name) mergedCSS += ` * @name ${metadata.name}\n`;
+      if (metadata.description) mergedCSS += ` * @description ${metadata.description}\n`;
+      if (metadata.author) mergedCSS += ` * @author ${metadata.author}\n`;
+      if (metadata.authorId) mergedCSS += ` * @authorId ${metadata.authorId}\n`;
+      if (metadata.source) mergedCSS += ` * @source ${metadata.source}\n`;
+      if (metadata.version) mergedCSS += ` * @version ${metadata.version}\n`;
+      if (metadata.website) mergedCSS += ` * @website ${metadata.website}\n`;
+      if (metadata.invite) mergedCSS += ` * @invite ${metadata.invite}\n`;
+      if (metadata.tags && Array.isArray(metadata.tags)) {
+        mergedCSS += ` * @tags ${metadata.tags.join(', ')}\n`;
+      }
       mergedCSS += ` */\n\n`;
     }
 
@@ -62,7 +64,7 @@ async function fetchCSS(url) {
       if (cssContentOriginal !== null) {
         let cssContent = cssContentOriginal;
         if (hideComments) {
-          // Remove CSS comments (naively, all /* ... */)
+          // Remove all CSS comments (naively, all /* ... */)
           cssContent = cssContent.replace(/\/\*[\s\S]*?\*\//g, '');
         }
         mergedCSS += `\n/* Begin ${entry.repo}/${entry.css_path} */\n`;
@@ -79,8 +81,8 @@ async function fetchCSS(url) {
       console.log('Dry run mode - merged CSS content:');
       console.log(mergedCSS);
     } else {
-      fs.writeFileSync('anebix-main.css', mergedCSS, 'utf8');
-      console.log('Combined CSS file "anebix-main.css" created/updated successfully.');
+      fs.writeFileSync('combined.css', mergedCSS, 'utf8');
+      console.log('Combined CSS file "combined.css" created/updated successfully.');
     }
   } catch (err) {
     console.error(`Error during CSS merge process: ${err.message}`);
