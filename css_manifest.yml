@@ -1,8 +1,8 @@
-- repo: yourusername/css-repo-1
+- repo: anebix-world/discord-css
   branch: main
-  css_path: styles/main.css
+  css_path: css/toggleable/add-servers-mentionedfirst.css
   order: 1
-- repo: yourusername/css-repo-2
+- repo: anebix-world/discord-css
   branch: main
-  css_path: assets/styles.css
+  css_path: css/toggleable/hide-channels-invitebutton.css
   order: 2
