@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [css-updated]
   schedule:
-    - cron: '0 */6 * * *'  # Fallback: runs every 6 hours
+    - cron: '0 */6 * * *'  # Runs every 6 hours as a fallback
   push:
     paths:
       - css_manifest.yml
@@ -12,9 +12,12 @@ on:
 jobs:
   merge-css:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout repository with PAT
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -32,14 +35,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: node scripts/merge-css.js
 
-      - name: Commit merged CSS file if changed
+      - name: Set remote URL with PAT
         run: |
+          git remote set-url origin https://github.com/anebix-world/discord-css-merge.git
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add anebix-main.css
-            git commit -m "Update combined CSS [skip ci]"
-            git push
+
+      - name: Commit merged CSS file if changed
+        run: |
+          if [ -f anebix-main.css ]; then
+            if [ -n "$(git status --porcelain)" ]; then
+              git add anebix-main.css
+              git commit -m "Update combined CSS [skip ci]"
+              git push origin main
+            else
+              echo "No changes detected."
+            fi
           else
-            echo "No changes detected."
+            echo "anebix-main.css not found, skipping commit."
           fi
