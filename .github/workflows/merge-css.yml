@@ -1,0 +1,42 @@
+name: Merge CSS Files
+
+on:
+  repository_dispatch:
+    types: [css-updated]
+  schedule:
+    - cron: '0 */6 * * *'  # Fallback: runs every 6 hours
+
+jobs:
+  merge-css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install js-yaml node-fetch@2
+
+      - name: Merge CSS files
+        env:
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: node scripts/merge-css.js
+
+      - name: Commit merged CSS file if changed
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add combined.css
+            git commit -m "Update combined CSS [skip ci]"
+            git push
+          else
+            echo "No changes detected."
+          fi

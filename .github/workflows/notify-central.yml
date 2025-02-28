@@ -1,0 +1,18 @@
+name: Notify Central Repo of CSS Update
+
+on:
+  push:
+    branches:
+      - main  # or whichever branch you want to monitor
+
+jobs:
+  notify-central:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch event to central repository
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: anebix-world/discord-css-merge  # Update with your central repo's owner/name
+          event-type: css-updated
+          client-payload: '{"message": "CSS file updated in repository", "repo": "${{ github.repository }}"}'
