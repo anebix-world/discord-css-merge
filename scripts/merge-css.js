@@ -79,8 +79,8 @@ async function fetchCSS(url) {
       console.log('Dry run mode - merged CSS content:');
       console.log(mergedCSS);
     } else {
-      fs.writeFileSync('combined.css', mergedCSS, 'utf8');
-      console.log('Combined CSS file "combined.css" created/updated successfully.');
+      fs.writeFileSync('anebix-main.css', mergedCSS, 'utf8');
+      console.log('Combined CSS file "anebix-main.css" created/updated successfully.');
     }
   } catch (err) {
     console.error(`Error during CSS merge process: ${err.message}`);
