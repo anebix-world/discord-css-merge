@@ -33,6 +33,7 @@ jobs:
         env:
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          HIDE_COMMENTS: 'true'
         run: node scripts/merge-css.js
 
       - name: Set remote URL with PAT
