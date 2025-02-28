@@ -1,8 +1,118 @@
-- repo: anebix-world/discord-css
-  branch: main
-  css_path: css/toggleable/add-servers-mentionedfirst.css
-  order: 1
-- repo: anebix-world/discord-css
-  branch: main
-  css_path: css/toggleable/hide-channels-invitebutton.css
-  order: 2
+metadata:
+  name: Anebix Main CSS
+  description: All of the CSS ever needed, all in one package.
+  author: Anebix
+  authorId: "1249116126139519009"
+  source: https://github.com/anebix-world/discord-css
+  version: "0.0.1"
+  website: https://github.com/anebix-world
+  invite: vpQtzES4sn
+  tags:
+    - theme
+    - custom
+
+snippets:
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/add-textbar-nopermshake.css
+    order: 1
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-attachments-modernizeaudio.css
+    order: 2
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-animvcicon.css
+    order: 3
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-muteemoji.css
+    order: 4
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-statususernameboth.css
+    order: 5
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-unreadpill.css
+    order: 6
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-visiblescrollbanner.css
+    order: 7
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-emoji-handgun.css
+    order: 8
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-mesages-menubarup.css
+    order: 9
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-messages-detailedtimestamps.css
+    order: 10
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-messages-forumimprovements.css
+    order: 11
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-toolbar-bearableinbox.css
+    order: 12
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-ui-deletelogoutred.css
+    order: 13
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-channels-closedmx.css
+    order: 14
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-channels-invitebutton.css
+    order: 15
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-members-modviewhidedisabled.css
+    order: 16
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-textbar-buttons.css
+    order: 17
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-ui-nitro.css
+    order: 18
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-servers-icons.css
+    order: 19
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/add-ui-rolecolorbg.css
+    order: 20
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-channels-searchbar.css
+    order: 21
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-toolbar-help.css
+    order: 22
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/hide-toolbar-icons.css
+    order: 23
+  - repo: anebix-world/discord-css
+    branch: main
+    css_path: css/toggleable/change-channels-userarearedesign.css
+    order: 24
+  - repo: anebix-world/nvhhr-discordcss
+    branch: main
+    css_path: snippets/randomfixes.theme.css
+    order: 25
+  - repo: anebix-world/nvhhr-discordcss
+    branch: main
+    css_path: snippets/pingedserversfirst.theme.css
+    order: 26

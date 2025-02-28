@@ -25,24 +25,44 @@ async function fetchCSS(url) {
   try {
     // Load and parse the manifest file
     const manifestContent = fs.readFileSync('css_manifest.yml', 'utf8');
-    let manifest = yaml.load(manifestContent);
-    if (!Array.isArray(manifest)) {
-      throw new Error('Manifest must be an array of entries.');
+    const manifestData = yaml.load(manifestContent);
+
+    // Get metadata and snippets
+    const metadata = manifestData.metadata || {};
+    let snippets = manifestData.snippets;
+    if (!Array.isArray(snippets)) {
+      throw new Error('Manifest "snippets" must be an array of entries.');
     }
 
-    // Sort the manifest by the "order" field
-    manifest.sort((a, b) => a.order - b.order);
+    // Sort the snippets by the "order" field
+    snippets.sort((a, b) => a.order - b.order);
+
     let mergedCSS = '';
 
-    // Process each entry in the manifest
-    for (const entry of manifest) {
+    // Prepend metadata as a comment block if available
+    if (metadata && Object.keys(metadata).length > 0) {
+      mergedCSS += `/*\n`;
+      if (metadata.name) mergedCSS += ` * ${metadata.name}`;
+      if (metadata.version) mergedCSS += ` v${metadata.version}`;
+      mergedCSS += `\n`;
+      if (metadata.description) mergedCSS += ` * ${metadata.description}\n`;
+      if (metadata.author) mergedCSS += ` * Author: ${metadata.author}\n`;
+      if (metadata.source) mergedCSS += ` * Source: ${metadata.source}\n`;
+      if (metadata.website) mergedCSS += ` * Website: ${metadata.website}\n`;
+      if (metadata.invite) mergedCSS += ` * Invite: ${metadata.invite}\n`;
+      if (metadata.tags) mergedCSS += ` * Tags: ${metadata.tags.join(', ')}\n`;
+      mergedCSS += ` */\n\n`;
+    }
+
+    // Process each snippet entry
+    for (const entry of snippets) {
       // Construct raw URL: https://raw.githubusercontent.com/<repo>/<branch>/<css_path>
       const rawUrl = `https://raw.githubusercontent.com/${entry.repo}/${entry.branch}/${entry.css_path}`;
       const cssContentOriginal = await fetchCSS(rawUrl);
       if (cssContentOriginal !== null) {
         let cssContent = cssContentOriginal;
         if (hideComments) {
-          // Remove comments from the fetched CSS content (naively removes all /*...*/)
+          // Remove CSS comments (naively, all /* ... */)
           cssContent = cssContent.replace(/\/\*[\s\S]*?\*\//g, '');
         }
         mergedCSS += `\n/* Begin ${entry.repo}/${entry.css_path} */\n`;
@@ -59,8 +79,8 @@ async function fetchCSS(url) {
       console.log('Dry run mode - merged CSS content:');
       console.log(mergedCSS);
     } else {
-      fs.writeFileSync('anebix-main.css', mergedCSS, 'utf8');
-      console.log('Combined CSS file "anebix-main.css" created/updated successfully.');
+      fs.writeFileSync('combined.css', mergedCSS, 'utf8');
+      console.log('Combined CSS file "combined.css" created/updated successfully.');
     }
   } catch (err) {
     console.error(`Error during CSS merge process: ${err.message}`);
