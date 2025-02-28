@@ -5,10 +5,10 @@ on:
     types: [css-updated]
   schedule:
     - cron: '0 */6 * * *'  # Fallback: runs every 6 hours
-on:
   push:
     paths:
       - css_manifest.yml
+
 jobs:
   merge-css:
     runs-on: ubuntu-latest
