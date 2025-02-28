@@ -1,56 +1,24 @@
 
 /* Begin anebix-world/discord-css/css/toggleable/add-servers-mentionedfirst.css */
-/**
- * @name pingedserversfirst
- * @author nvhhr
- * @description move pinged servers and folders to top of serverlist
-*/
 
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label], /*serverlist*/
-[id^=folder-items-] /*folder*/
- { display: flex; /*order property needs flex*/
-   flex-direction: column; } /*fix layout*/
 
-/*find servers and folders that have a number badge and force them up*/
+[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label], 
+[id^=folder-items-] 
+ { display: flex; 
+   flex-direction: column; } 
+
+
 [data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_])
  { order: -1; }
 
-/*
-selective use instructions:
 
-to use as a whitelist, do this:
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="ServerName Here"]),
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="Another Server"]),
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="Et cetera"])
- { order: -1; }
-
-another solution, to survive server name changes or when you have servers which contain name of other server,
-you can use server IDs, but this will not work with folders.
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-list-item-id="guildsnav___1015060230222131221"])
-
-to exclude servers:
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="ServerName Here"]),
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="Another Server"]),
-[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_]):has([data-dnd-name*="Et cetera"])
- { order: 0; }
-*/
 
 /* End anebix-world/discord-css */
 
 /* Begin anebix-world/discord-css/css/toggleable/hide-channels-invitebutton.css */
-/**
- * @name Hide Channel Invites
- * @description [Hosted] Get rid of the annoying create invite button and always see many pings you've gotten once again.
- * @author Anebix, gold_me
- * @authorId 1249116126139519009, 342349154053521409
- * @source https://github.com/anebix-world/discord-css
- * @version 0.0.1
- * @website https://github.com/anebix-world
- * @invite vpQtzES4sn
- * @tags snippet, channel, remove, hide, invite, hosted
- */
-/* https://discord.com/channels/1015060230222131221/1028106818368589824/1285418433042714667 */
-/* Remove the Create Invite button from Channel Lists */
+
+
+
 [class^="iconVisibility_"] [aria-label="Create Invite"] {
     display: none !important;
 }
