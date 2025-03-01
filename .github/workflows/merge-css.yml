@@ -44,14 +44,14 @@ jobs:
 
       - name: Commit merged CSS file if changed
         run: |
-            if [ -f anebix-main.css ]; then
-  if ! git diff --quiet anebix-main.css; then
-    git add anebix-main.css
-    git commit -m "Update combined CSS [skip ci]"
-    git push origin main
-  else
-    echo "No changes detected in anebix-main.css."
-  fi
-else
-  echo "anebix-main.css not found, skipping commit."
-fi
+          if [ -f anebix-main.css ]; then
+            if ! git diff --quiet anebix-main.css; then
+              git add anebix-main.css
+              git commit -m "Update combined CSS [skip ci]"
+              git push origin main
+            else
+              echo "No changes detected in anebix-main.css."
+            fi
+          else
+            echo "anebix-main.css not found, skipping commit."
+          fi
