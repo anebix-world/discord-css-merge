@@ -37,8 +37,14 @@ async function fetchCSS(url) {
     }
 
     // Get output file name from metadata; default to combined.css if not provided.
-    const outputFile = metadata.output || 'combined.css';
+    let outputFile = metadata.output || 'combined.css';
     console.log(`Output file set to: ${outputFile}`);
+
+    // If the outputFile is absolute, convert it to a relative path based on the repository root
+    if (path.isAbsolute(outputFile)) {
+      outputFile = path.join(process.cwd(), outputFile);
+      console.log(`Converted absolute path to: ${outputFile}`);
+    }
 
     // Ensure the output directory exists, if a path is specified
     const outputDir = path.dirname(outputFile);
