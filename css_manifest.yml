@@ -1,5 +1,6 @@
 metadata:
   name: Anebix Main CSS
+  output: anebix-main.css
   description: All of the CSS ever needed, all in one package.
   author: Anebix
   authorId: "1249116126139519009"

@@ -34,6 +34,10 @@ async function fetchCSS(url) {
       throw new Error('Manifest "snippets" must be an array of entries.');
     }
 
+    // Get output file name from metadata; default to combined.css if not provided.
+    const outputFile = metadata.output || 'combined.css';
+    console.log(`Output file set to: ${outputFile}`);
+
     // Sort the snippets by the "order" field
     snippets.sort((a, b) => a.order - b.order);
 
@@ -81,8 +85,8 @@ async function fetchCSS(url) {
       console.log('Dry run mode - merged CSS content:');
       console.log(mergedCSS);
     } else {
-      fs.writeFileSync('anebix-main.css', mergedCSS, 'utf8');
-      console.log('Combined CSS file "anebix-main.css" created/updated successfully.');
+      fs.writeFileSync(outputFile, mergedCSS, 'utf8');
+      console.log(`Combined CSS file "${outputFile}" created/updated successfully.`);
     }
   } catch (err) {
     console.error(`Error during CSS merge process: ${err.message}`);

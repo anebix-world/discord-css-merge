@@ -44,14 +44,20 @@ jobs:
 
       - name: Commit merged CSS file if changed
         run: |
-          if [ -f anebix-main.css ]; then
-            if ! git diff --quiet anebix-main.css; then
-              git add anebix-main.css
+          # Extract output file from manifest (metadata.output)
+          output_file=$(grep '^[[:space:]]*output:' css_manifest.yml | head -n 1 | sed 's/.*output:[[:space:]]*//')
+          if [ -z "$output_file" ]; then
+            output_file="combined.css"
+          fi
+          echo "Using output file: $output_file"
+          if [ -f "$output_file" ]; then
+            if ! git diff --quiet "$output_file"; then
+              git add "$output_file"
               git commit -m "Update combined CSS [skip ci]"
               git push origin main
             else
-              echo "No changes detected in anebix-main.css."
+              echo "No changes detected in $output_file."
             fi
           else
-            echo "anebix-main.css not found, skipping commit."
+            echo "$output_file not found, skipping commit."
           fi
