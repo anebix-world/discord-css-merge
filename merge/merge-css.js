@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const yaml = require('js-yaml');
 const fetch = require('node-fetch');
 
@@ -23,8 +24,9 @@ async function fetchCSS(url) {
 
 (async () => {
   try {
-    // Load and parse the manifest file
-    const manifestContent = fs.readFileSync('css_manifest.yml', 'utf8');
+    // Load and parse the manifest file from the same folder as this script
+    const manifestPath = path.join(__dirname, 'css_manifest.yml');
+    const manifestContent = fs.readFileSync(manifestPath, 'utf8');
     const manifestData = yaml.load(manifestContent);
 
     // Extract metadata and snippet entries

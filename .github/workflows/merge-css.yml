@@ -4,10 +4,10 @@ on:
   repository_dispatch:
     types: [css-updated]
   schedule:
-    - cron: '0 0,6,12,18 * * *'
+    - cron: '0 0,6,12,18 * * *'  # Runs at midnight, 06:00, 12:00, and 18:00 UTC
   push:
     paths:
-      - css_manifest.yml
+      - merge/css_manifest.yml
 
 jobs:
   merge-css:
@@ -34,7 +34,7 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           HIDE_COMMENTS: 'true'
-        run: node scripts/merge-css.js
+        run: node merge/merge-css.js
 
       - name: Set remote URL with PAT
         run: |
@@ -44,8 +44,8 @@ jobs:
 
       - name: Commit merged CSS file if changed
         run: |
-          # Extract output file from manifest (metadata.output)
-          output_file=$(grep '^[[:space:]]*output:' css_manifest.yml | head -n 1 | sed 's/.*output:[[:space:]]*//')
+          # Extract output file from manifest (/merge/css_manifest.yml)
+          output_file=$(grep '^[[:space:]]*output:' merge/css_manifest.yml | head -n 1 | sed 's/.*output:[[:space:]]*//')
           if [ -z "$output_file" ]; then
             output_file="combined.css"
           fi
