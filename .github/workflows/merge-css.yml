@@ -12,7 +12,6 @@ on:
 jobs:
   merge-css:
     runs-on: ubuntu-latest
-    # Only run push events if the commit message does NOT contain "[skip ci]"
     if: github.event_name != 'push' || (github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip ci]'))
 
     steps:
@@ -52,15 +51,16 @@ jobs:
             output_file="combined.css"
           fi
           echo "Using output file: $output_file"
-          if [ -f "$output_file" ]; then
-            if ! git diff --quiet "$output_file"; then
-              git add "$output_file"
-              git commit -m "Update combined CSS [skip ci]"
-              git pull --rebase origin main
-              git push origin main
-            else
-              echo "No changes detected in $output_file."
-            fi
+          # If file doesn't exist, create it (as an empty file)
+          if [ ! -f "$output_file" ]; then
+            echo "$output_file not found, creating an empty file."
+            touch "$output_file"
+          fi
+          if ! git diff --quiet "$output_file"; then
+            git add "$output_file"
+            git commit -m "Update combined CSS [skip ci]"
+            git pull --rebase origin main
+            git push origin main
           else
-            echo "$output_file not found, skipping commit."
+            echo "No changes detected in $output_file."
           fi
