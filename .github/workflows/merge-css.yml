@@ -50,12 +50,23 @@ jobs:
           if [ -z "$output_file" ]; then
             output_file="combined.css"
           fi
+
+          # If output_file is absolute (starts with '/'), convert it relative to the repo root
+          if [[ "$output_file" == /* ]]; then
+             # Remove the leading slash and prepend current working directory
+             output_file="$(pwd)/${output_file:1}"
+          fi
+
           echo "Using output file: $output_file"
-          # If file doesn't exist, create it (as an empty file)
+
+          # Ensure the directory exists and create the file if it doesn't exist
           if [ ! -f "$output_file" ]; then
             echo "$output_file not found, creating an empty file."
+            mkdir -p "$(dirname "$output_file")"
             touch "$output_file"
           fi
+
+          # Check if there are changes to commit for the output file only
           if ! git diff --quiet "$output_file"; then
             git add "$output_file"
             git commit -m "Update combined CSS [skip ci]"
