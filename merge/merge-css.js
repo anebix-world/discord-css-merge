@@ -40,6 +40,13 @@ async function fetchCSS(url) {
     const outputFile = metadata.output || 'combined.css';
     console.log(`Output file set to: ${outputFile}`);
 
+    // Ensure the output directory exists, if a path is specified
+    const outputDir = path.dirname(outputFile);
+    if (outputDir !== '.' && !fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+      console.log(`Created directory: ${outputDir}`);
+    }
+
     // Sort the snippets by the "order" field
     snippets.sort((a, b) => a.order - b.order);
 
