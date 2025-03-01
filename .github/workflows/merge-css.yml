@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [css-updated]
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours as a fallback
+    - cron: '0 0,6,12,18 * * *'
   push:
     paths:
       - css_manifest.yml
