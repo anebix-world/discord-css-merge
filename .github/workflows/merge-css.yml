@@ -8,6 +8,7 @@ on:
   push:
     paths:
       - merge/css_manifest.yml
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   merge-css:
