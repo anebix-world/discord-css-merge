@@ -8,7 +8,7 @@ on:
   push:
     paths:
       - merge/css_manifest.yml
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:  # manual trigger
 
 jobs:
   merge-css:
@@ -54,7 +54,6 @@ jobs:
 
           # If output_file is absolute (starts with '/'), convert it relative to the repo root
           if [[ "$output_file" == /* ]]; then
-             # Remove the leading slash and prepend current working directory
              output_file="$(pwd)/${output_file:1}"
           fi
 
@@ -67,12 +66,21 @@ jobs:
             touch "$output_file"
           fi
 
-          # Check if there are changes to commit for the output file only
-          if ! git diff --quiet "$output_file"; then
+          # Check if the file is tracked
+          if ! git ls-files --error-unmatch "$output_file" > /dev/null 2>&1; then
+            echo "$output_file is untracked. Committing it."
             git add "$output_file"
-            git commit -m "Update combined CSS [skip ci]"
+            git commit -m "Add merged CSS [skip ci]"
             git pull --rebase origin main
             git push origin main
           else
-            echo "No changes detected in $output_file."
+            # File is tracked; check if there are changes
+            if ! git diff --quiet "$output_file"; then
+              git add "$output_file"
+              git commit -m "Update combined CSS [skip ci]"
+              git pull --rebase origin main
+              git push origin main
+            else
+              echo "No changes detected in $output_file."
+            fi
           fi
