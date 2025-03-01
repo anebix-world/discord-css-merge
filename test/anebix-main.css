@@ -1,0 +1,934 @@
+/**
+ * @name Anebix Main CSS
+ * @description All of the CSS ever needed, all in one package.
+ * @author Anebix
+ * @authorId 1249116126139519009
+ * @source https://github.com/anebix-world/discord-css
+ * @version 0.0.1
+ * @website https://github.com/anebix-world
+ * @invite vpQtzES4sn
+ * @tags theme, custom
+ */
+
+
+/* Begin anebix-world/test/css/discord-css-merge.css */
+bloop
+
+aaa
+aaaaaaaaaa
+bbbbbbbbbbbbbb
+
+ccccccccccccccccccccccccc
+
+/* End anebix-world/test */
+
+/* Begin anebix-world/discord-css/css/toggleable/add-textbar-nopermshake.css */
+
+
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+
+[class*=channelTextAreaDisabled] {
+  position: relative;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+
+[class*=channelTextAreaDisabled]:hover {
+  animation: shake 0.25s ease-in-out;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-attachments-modernizeaudio.css */
+
+
+
+[class^="mosaicItem"] > [class^="wrapperAudio"] > [class^="audioMetadata"] {
+  margin-bottom: 24px;
+}
+[class^="mosaicItem"] > [class^="wrapperAudio"] > [class^="audioControls"] {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 0px 0px 8px 8px;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-animvcicon.css */
+
+
+
+.containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M15.16"] {
+    d: path("M15.1 20.75c-.58.14-1.1-.33-1.1-.92v-.03c0-.5.37-.92.85-1.05a7 7 0 0 0 0-13.5A1.11 1.11 0 0 1 14 4.2v-.03c0-.6.52-1.06 1.1-.92a9 9 0 0 1 0 17.5Z");
+    animation-name: volume-icon-anim;
+    animation-duration: 1.25s;
+    animation-iteration-count: infinite;
+}
+
+.containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M12"] {
+    d: path("M12 3a1 1 0 0 0-1-1h-.06a1 1 0 0 0-.74.32L5.92 7H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.92l4.28 4.68a1 1 0 0 0 .74.32H11a1 1 0 0 0 1-1V3ZM15.16 16.51c-.57.28-1.16-.2-1.16-.83v-.14c0-.43.28-.8.63-1.02a3 3 0 0 0 0-5.04c-.35-.23-.63-.6-.63-1.02v-.14c0-.63.59-1.1 1.16-.83a5 5 0 0 1 0 9.02Z");
+}
+
+.containerDefault_f6f816:has([class*="live_"], [class*="baseShapeRound_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M15.16"] {
+    animation-name: volume-icon-anim-live;
+}
+.containerDefault_f6f816:has([class*="live_"], [class*="baseShapeRound_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M12"] {
+    color: var(--red-400);
+}
+
+@keyframes volume-icon-anim {
+    0%, 100%  {color: transparent;}
+    50%  {color: var(--currentColor);}
+}
+
+@keyframes volume-icon-anim-live {
+    0%, 100% {color: transparent;}
+    50%  {color: var(--red-400);}
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-muteemoji.css */
+
+
+[class*="modeMuted_"]:has([class^="icon_"]) [class^="name_"] {
+    color: var(--channel-icon);
+    opacity: 40%;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-statususernameboth.css */
+
+
+[class^=hovered], [class^=hoverRoll][class*=forceHover]:not([class^=disabled]) > [class^=default]
+{
+  opacity: 1!important;
+  transform: none;
+}
+[class^=avatarWrapper_] [class^=nameTag_] [class^=hovered_]::before{
+    content: "@";
+}
+[class^=hoverRoll] > [class^=default]
+{
+  margin-top: 15px;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-unreadpill.css */
+
+
+[class^="iconVisibility_"]:has([style="color: var(--text-brand);"]) > [class^="unread_"] {
+  background-color: var(--text-brand);
+}
+[class^="iconVisibility_"]:has([class^="mentionsBadge_"]) > [class^="unread_"] {
+  background-color: var(--status-danger);
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-visiblescrollbanner.css */
+
+
+[class^="container_"]:not([class*="bannerVisible_"]) >
+[class^="animatedContainer_"] {{ display: none; }
+
+  top: 3px;
+}
+[class*="animatedContainer_"] {
+  opacity: 1 !important;
+}
+[class*="headerContent_"] {
+  filter: drop-shadow(0 1px 1px var(--bg-backdrop));
+}
+
+[class^="sidebar_"] header {
+  background-color: transparent !important;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-emoji-handgun.css */
+
+
+
+
+[data-name="gun"] .emojiSpriteImage, .emoji[data-name*=":gun:"], .emoji[alt*=":gun:"], .emoji[alt="🔫"] {
+    content:  url(https://abs.twimg.com/responsive-web/client-web/1f52b.cec753aa.svg) !important;
+    background-image: none !important;
+}
+
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-mesages-menubarup.css */
+
+[class*=buttonContainer] > [class*=buttons_] {
+    transform: translateY(-50%);
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-messages-detailedtimestamps.css */
+
+
+span[class*="timestamp_"] time[aria-label*="Edited"]::before {
+    content: '🖉  ' attr(aria-label);
+    font-size: 0.625rem;
+    font-weight: 400;
+}
+
+
+span[class*="timestampInline_"] time::before {
+  content: attr(aria-label);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+
+span[class*="timestampVisibleOnHover_"] time::before {
+  content: attr(aria-label);
+  position: absolute;
+  font-size: 0.6rem;
+  line-height: 0.85rem;
+  width: 65px;
+  left: -1px;
+  top: -2px;
+}
+
+
+span[class*="timestampInline_"], span[class*="timestampVisibleOnHover_"] {
+  font-size: 0rem !important;
+}
+span[class*="edited_"] {
+    position: relative;
+    right: 95px;
+    color: transparent;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-messages-forumimprovements.css */
+
+.tagsContainer_a6d69a {
+	gap: 16px;
+	align-items: flex-start
+}
+
+.tagsContainer_a6d69a .divider_a6d69a {
+	display: none
+}
+
+.tagsContainer_a6d69a .tagList_a6d69a {
+	height: auto;
+	max-height: 32px;
+	transition: max-height .2s ease
+}
+
+.tagsContainer_a6d69a .tagList_a6d69a:is(:hover, :has(.selected_c993da)) {
+	max-height: 256px
+}
+
+.tagsContainer_a6d69a .tagList_a6d69a .tagListInner_a6d69a {
+	justify-content: center
+}
+
+.tagsContainer_a6d69a .tagsButton_a6d69a {
+	position: static;
+	margin-left: 0
+}
+
+.tagsButtonPlaceholder_a6d69a {
+	display: none
+}
+
+.tagsContainer_c1668f {
+	align-items: flex-start
+}
+
+.tagsContainer_c1668f .tagsIcon_c1668f {
+	height: 24px
+}
+
+.tagsContainer_c1668f .tagList_c1668f {
+	height: auto;
+	max-height: 24px;
+	transition: max-height .2s ease
+}
+
+.tagsContainer_c1668f .tagList_c1668f:is(:hover, :has(.selected_c993da)) {
+	max-height: 192px
+}
+
+.tagsContainer_c1668f .tagsButton_c1668f {
+	position: static;
+	margin-left: 0
+}
+
+.tagsButtonPlaceholder_c1668f {
+	display: none
+}
+
+.scrollerInner_e2e187 {
+	overflow: unset
+}
+
+.scrollerInner_e2e187 .divider_af45f8 {
+	display: none
+}
+
+.scrollerInner_e2e187 .container_b385c8 {
+	box-shadow: var(--elevation-low);
+	border-top-color: rgba(0, 0, 0, 0)
+}
+
+.popout_a15d29 {
+	height: calc(18px + var(--custom-forum-composer-attachments-attachment-size) + 24px)
+}
+
+.popout_a15d29 .uploadContainer_df1eaf .imageSmall_f847a3 {
+	border-radius: 12px 12px 0 0
+}
+
+.popout_a15d29 .uploadContainer_df1eaf .imageSmall_f847a3 .spoilerContainer_a3d0f7 {
+	border-radius: 12px 12px 0 0
+}
+
+.popout_a15d29 .uploadContainer_df1eaf .actionBarContainer_df1eaf {
+	top: unset;
+	bottom: 0
+}
+
+.popout_a15d29 .uploadContainer_df1eaf .actionBarContainer_df1eaf .smallActionBar_df1eaf {
+	transform: none;
+	opacity: 1
+}
+
+.popout_a15d29 .uploadContainer_df1eaf .actionBarContainer_df1eaf .smallActionBar_df1eaf .wrapper_ef319f {
+	border-radius: 0 0 12px 12px
+}
+
+.imageSmall_f847a3.icon_f847a3 {
+	background-color: var(--background-primary);
+	background-size: 60%
+}
+
+.imageSmall_f847a3 .spoilerContainer_a3d0f7 {
+	border-radius: 12px
+}
+
+.imageSmall_f847a3 .spoilerContainer_a3d0f7 .spoilerWarning_a3d0f7 {
+	zoom: .7
+}
+
+.mainCard_a6d69a:hover {
+	transform: none
+}
+
+.mainCard_a6d69a .imageCover_a57509 {
+	object-fit: contain;
+	background: var(--background-secondary)
+}
+
+:is(.mediaIconsRow_a57509, .tagsRow_a57509) {
+	transition: opacity .2s
+}
+
+.postBody_a57509:hover :is(.mediaIconsRow_a57509, .tagsRow_a57509) {
+	opacity: 0
+}
+
+:is(.mediaIconsRow_a57509, .tagsRow_a57509) .mediaIcon_a57509 {
+	background-image: url("https://discord.com/assets/c5a74fc51ff67682b11a.svg");
+	height: 22px
+}
+
+:is(.mediaIconsRow_a57509, .tagsRow_a57509) .mediaIcon_a57509 path {
+	fill: rgba(0, 0, 0, 0)
+}
+
+.thumbnailContainer_d331f1 .loadingOverlay_d4597d {
+	display: flex;
+	align-items: center;
+	justify-content: center
+}
+
+.thumbnailContainer_d331f1 .altText_cf58b5 {
+	position: absolute;
+	z-index: -1
+}
+
+.previewForm_c1668f {
+	padding: 0;
+	margin: 1px 12px 0 0;
+	border: 0;
+	outline: 2px solid var(--background-modifier-selected);
+	border-radius: var(--radius-xs);
+	width: calc(100% - 24px - 78px - 24px)
+}
+
+.previewForm_c1668f .contentContainer_c1668f {
+	width: 100%
+}
+
+.previewForm_c1668f .previewModeIndicator_c1668f {
+	position: absolute;
+	pointer-events: none;
+	bottom: 4px;
+	right: 4px
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-toolbar-bearableinbox.css */
+
+
+.recentMentionsPopout_ddb5b4 .container_ddb5b4,
+.recentMentionsPopout_ddb5b4 .channel_d09ffd {
+    background-color: var(--background-primary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.recentMentionsPopout_ddb5b4 .container_ddb5b4 {
+    padding-right: unset;
+}
+
+.recentMentionsPopout_ddb5b4 .messagesPopout_ac90a2 {
+    padding: 16px;
+}
+
+.recentMentionsPopout_ddb5b4 .channel_d09ffd {
+    margin: 16px 8px 16px 0;
+    padding-bottom: 0;
+}
+
+.recentMentionsPopout_ddb5b4 .channelHeader_f3978e {
+    background-color: var(--background-primary);
+    height: fit-content;
+    padding: 6px 16px;
+    border-bottom: thin solid var(--background-modifier-accent);
+}
+
+.recentMentionsPopout_ddb5b4 .messageContainer_ddb5b4,
+.recentMentionsPopout_ddb5b4 .messages_c06487 {
+    margin-left: unset;
+    background: none;
+    border-radius: unset;
+}
+
+
+.recentMentionsPopout_ddb5b4 .iconSizeMedium_f11207 {
+    width: 24px;
+    height: 24px;
+}
+
+.recentMentionsPopout_ddb5b4 .iconActiveMedium_f11207 {
+    border-radius: 7px;
+}
+
+.recentMentionsPopout_ddb5b4 .dmIcon_f3978e,
+.recentMentionsPopout_ddb5b4 .guildIcon_f3978e {
+    margin-right: 6px;
+}
+
+
+.recentMentionsPopout_ddb5b4 .channelName_f3978e svg path {
+    fill: var(--channel-icon);
+}
+
+.recentMentionsPopout_ddb5b4 .channelName_f3978e svg {
+    margin: 0 4px;
+}
+
+.recentMentionsPopout_ddb5b4 .channelNameSection_f3978e {
+    -webkit-box-orient: unset;
+    -ms-flex-direction: unset;
+    flex-direction: unset;
+}
+
+.recentMentionsPopout_ddb5b4 .heading-md-medium-2DVCeJ,
+.recentMentionsPopout_ddb5b4 .heading-md-normal-3Ytn6I {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.recentMentionsPopout_ddb5b4 .subtext_f3978e,
+.recentMentionsPopout_ddb5b4 .subtextContainer_f3978e {
+    margin-left: 4px;
+    line-height: 20px;
+    width: fit-content;
+}
+
+
+.recentMentionsPopout_ddb5b4 .container_ddb5b4 .closeButton_ddb5b4 {
+    opacity: 0;
+}
+
+.recentMentionsPopout_ddb5b4 .container_ddb5b4:hover .closeButton_ddb5b4 {
+    opacity: 1;
+}
+
+.recentMentionsPopout_ddb5b4 .tertiary_ad6d80:not(.disabled__4d064),
+.recentMentionsPopout_ddb5b4 .tertiary_ad6d80:hover:not(.disabled__4d064) {
+    background: none;
+}
+
+.recentMentionsPopout_ddb5b4 .collapseButton_d09ffd:hover {
+    color: var(--interactive-active);
+}
+
+.recentMentionsPopout_ddb5b4 .collapseButton_d09ffd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: unset;
+    width: 32px;
+    height: 32px;
+    padding: unset;
+    margin-left: 12px;
+}
+
+.recentMentionsPopout_ddb5b4 .messages_c06487>button:last-of-type {
+    margin-left:auto;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-ui-deletelogoutred.css */
+
+
+[class^=item_][data-tab-id="DELETE"],
+[class^=item_][data-tab-id="logout"] {
+    color: var(--info-danger-foreground) !important;
+}
+[class^=item_][data-tab-id="DELETE"]:hover,
+[class^=item_][data-tab-id="logout"]:hover {
+    background-color: var(--info-danger-background) !important;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-channels-closedmx.css */
+
+
+
+[class^=privateChannels_] > [class^=scroller_] [class^=content_] > [class^=channel_] [class^=interactive_] > div:has([d^="M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 "]) {
+  display: none;
+}
+
+
+[class*=channel] [class*=closeButton][aria-label="Close DM"],[aria-label="Leave Group"] {
+    display: none !important;
+}
+
+
+[data-list-item-id^=private-channels-uid_]+[class^=closeButton_] {
+  display: none !important;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-channels-invitebutton.css */
+
+
+
+[class^="iconVisibility_"] [aria-label="Create Invite"] {
+    display: none !important;
+}
+[class^="iconVisibility_"] [class^="channelInfo_"] {
+    display: flex !important;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-members-modviewhidedisabled.css */
+
+
+[class^=guildSidebar_] [class^=bottomRow_]:has([class*=bottomRowActionDisabled_]) [class*=bottomRowActionDisabled_] {
+  display: none;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-textbar-buttons.css */
+
+
+button[aria-label="Select emoji"]{ display: none; }
+
+button[aria-label="Open GIF picker"]{ display: none; }
+
+button[aria-label="Send a gift"]{ display: none; }
+
+button[aria-label="Open sticker picker"]{ display: none; }
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-ui-nitro.css */
+
+
+
+
+a[href="/store"] { display: none; }
+
+
+a[href="/shop"] { display: none; }
+
+
+div[role="tablist"]:not(:has(input)) > div[class*="separator_"]:has(+ div[class*="header_"] + div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  
+div[role="tablist"]:not(:has(input)) > div[class*="header_"]:has(+ div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  
+div[role="tablist"]:not(:has(input)) > div[class*="premiumTab_"] { display: var(--display-settings-nitro-tab); } 
+div[role="tablist"]:not(:has(input)) > div[class*="premiumTab_"] + div { display: var(--display-settings-server-boost-tab); } 
+div[role="tablist"]:not(:has(input)) > div[class*="premiumTab_"] + div + div { display: var(--display-settings-subscriptions-tab); } 
+div[role="tablist"]:not(:has(input)) > div[class*="premiumTab_"] + div + div + div { display: var(--display-settings-gift-inventory-tab); } 
+div[role="tablist"]:not(:has(input)) > div[class*="premiumTab_"] + div + div + div + div { display: var(--display-settings-billing-tab); } 
+
+
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="separator_"]:has(+ div[class*="header_"] + div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="header_"]:has(+ div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="premiumTab_"] { display: var(--display-settings-nitro-tab); } 
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="premiumTab_"] + div { display: var(--display-settings-server-boost-tab); } 
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="premiumTab_"] + div + div { display: var(--display-settings-subscriptions-tab); } 
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="premiumTab_"] + div + div + div { display: var(--display-settings-gift-inventory-tab); } 
+div[role="tablist"]:has(input:placeholder-shown) > div[class*="premiumTab_"] + div + div + div + div { display: var(--display-settings-billing-tab); } 
+
+
+div[class*="premiumTab"] div[class*="premiumLabel"] svg { display: none; }
+div[class*="premiumTab"] div[class*="background"] { display: none; }
+
+
+div[class*="upsellOverlayContainer_"] { display: none; }
+
+
+div[class^="optionBox"]:has(div[class^="text-sm/semibold"] > div[class^="optionBoxText"] > div[class^="optionBoxDescription"] > div[class^="nitroWheelFlairContainer"]) { display: none; }
+
+
+div[class*="decorationGridItem"]:has(div[class*="iconBadge"]) { display: none; } 
+div[class*="effectGridItem"]:has(div[class*="iconBadge"]) { display: none; } 
+
+
+
+
+
+#profile-customization-tab > div[class^="container"]:has(button[class*="colorBrand"]) { display: none; }
+
+
+#profile-customization-tab div[class^="avatar_"]:has(path[d="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1 1 0 0 0 0 2H8a1 1 0 1 1 0 2H6a1 1 0 1 0 0 2h1.25A8 8 0 1 0 15 4H7Zm8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"])  { pointer-events: none;}
+#profile-customization-tab div[class^="avatar_"]:has(path[d="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1 1 0 0 0 0 2H8a1 1 0 1 1 0 2H6a1 1 0 1 0 0 2h1.25A8 8 0 1 0 15 4H7Zm8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"]) rect[class^="pointerEvents_"]  { pointer-events: none;}
+
+
+#appearance-tab div[class^="selectionGroup"]:has(div[class*="appIconSelectionContainer"]):has(div[class*="premiumSubscribeButton_"]) { display: none; }
+#appearance-tab div[role="button"]:has(svg[class*="nitroWheel"]) { display: none;}
+
+
+#appearance-tab div[class*="SelectionContainer"]:has(div[class*="lockedBadgeContainer"]) { display: none;}
+#appearance-tab div[class*="description"]:has(svg[class*="nitroWheel"]) { display: none;}
+
+
+div[class^="characterCount"] > div[class*=" upsell_"] { display: none; }
+
+
+div[class*="qualitySettingsContainer_"] button[class*="premiumUpsell"] { display: none; }
+div[class*="qualitySettingsContainer_"] div[class*="upsellBanner_"] { display: none; }
+
+
+div[class^="premiumIconWrapper"] { display: none; }
+
+
+div[class*="hasCollectiblesUpsell"] > div[class ^="userPopoutInner"] > div[class*="animation_"] { display: none; }
+
+
+button[class*=" giftButton"] { display: none; }
+
+
+button[class^=shinyButton]:has(div[class*=premiumSubscribeButton]) { display: none; }
+
+
+div[class^=nitroTextAndBadge] { display: none; }
+
+
+div[class^=upsellContainer] { display: none; }
+
+
+div[class*=categorySectionNitroLocked] { background-color: unset !important; }
+
+
+div[class^=nitroBottomDivider] { display: none; }
+
+
+div[class^=categoryItemLockIconContainer] { display: none; }
+
+
+div[class^=emojiLockIconContainer] { display: none; }
+
+
+div[class*="userProfileInner_"] > div:has(div[aria-label="Go to Shop" i]) { display: none; }
+
+
+div[class*="overlayBackground_"]:has(div[class*="contentText_"] > a[role="button"])  { display: none; }
+
+
+
+
+
+
+div[id="guild-header-popout-premium-subscribe"] { display: none; }
+div[role="group"]:has(div[id="guild-header-popout-premium-subscribe"]) + div[role="separator"] { display: none; }
+
+
+ul[aria-label="Channels"] > li > div[data-list-item-id^="channels___boosts"] { display: none; }
+
+
+div[class*="separator"]:has(+ div[class^="serverBoostTabItem"]) { display: var(--display-server-settings-boost-tab); } 
+div[class^="serverBoostTabItem"] { display: var(--display-server-settings-boost-tab); } 
+
+
+div[class^="serverBoostTabItem"][aria-selected=true] { background-color: var(--background-modifier-selected) !important; color: var(--interactive-active) !important;}
+div[class^="serverBoostTabItem"] svg { display: none; }
+
+
+
+div[aria-controls="vanity_url-tab"] { display: none; }
+button[class^="shinyButton"]:has(div[class*="upsellButton"]) { display: none; }
+
+
+#guild_premium-tab > div[class^="divider"] { display: none; }
+#guild_premium-tab > div[class^="wrapper"] { display: none; }
+#guild_premium-tab > div[class^="tier0Container"] { display: none; }
+
+
+
+
+
+
+div[class^="burstReactionTooltipPrompt"] { display: none; }
+
+
+div[data-dnd-name] > div[class^="wrapper"] svg { overflow: hidden; }
+
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-servers-icons.css */
+
+
+
+ 
+[data-list-item-id="guildsnav___1015060230222131221"]
+[class*=icon] {
+  content:url("https://anebix-world.github.io/discord-css/img/server-1015060230222131221_vencord.webp");
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/add-ui-rolecolorbg.css */
+
+.role_f9575e {
+  transform: translate(0);
+  overflow: hidden;
+  border: 0;
+
+  --transparency: .4;
+  
+  border-radius: 5px;
+  
+}
+.role_f9575e .roleRemoveIcon_f9575e {
+  margin: 0;
+  left: unset;
+  transform: translate(16%, -48%);
+}
+.role_f9575e .roleRemoveButton_f9575e {
+  position: static;
+}
+.role_f9575e .roleCircle_f9575e:after {
+  content: '';
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  opacity: var(--transparency);
+}
+
+.role_e4010c {
+  transform: translate(0);
+  overflow: hidden;
+  border: 0;
+
+  --transparency: .4;
+  border-radius: 5px;
+}
+.role_e4010c .roleRemoveIcon_e4010c {
+  margin: 0;
+  left: unset;
+  transform: translate(50%,-50%);
+}
+.role_e4010c .roleRemoveButton_e4010c {
+  position: static;
+}
+.role_e4010c .roleCircle_a26d7b:after {
+  content: '';
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  opacity: var(--transparency);
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-channels-searchbar.css */
+
+.searchBar_f0963d {
+  display: none;
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-toolbar-help.css */
+
+div[aria-label="Help"] { display: none; }
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/hide-toolbar-icons.css */
+
+div[aria-label="Start Voice Call"] { display: none !important; }
+div[aria-label="Start Video Call"] { display: none !important; }
+div[aria-label="Add Friends to DM"] { display: none !important; }
+div[aria-label="Complete Quest"] { display: none !important; }
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/discord-css/css/toggleable/change-channels-userarearedesign.css */
+
+
+[class^=panels] > [class^=container] 
+{
+    height: unset !important; 
+    align-items: unset !important; 
+    padding: 6px 8px !important; 
+    flex-direction: column-reverse !important; 
+    gap: 2px !important; 
+}
+
+[class^=avatarWrapper] 
+{
+    margin-right: unset !important; 
+    margin-left: unset !important; 
+    padding-left: 4px !important; 
+}
+
+[class^=container] > [class*=buttons] 
+{
+    justify-content: space-evenly !important; 
+}
+
+/* End anebix-world/discord-css */
+
+/* Begin anebix-world/nvhhr-discordcss/snippets/randomfixes.theme.css */
+
+
+
+.vc-platform-indicator,
+[class^=nitroBadgeSvg_]
+ { height: 1rem; }
+[class^=roleIcon_]
+ { margin-left: 0.5ch; }
+
+
+[class^=embedSpotify_]
+ { width: 600px !important; }
+
+
+[class^=avatar_]:hover + [class^=avatarDecoration_],
+[class^=avatar_]:hover [class^=avatarDecoration_]
+ { opacity: 0 !important; }
+[class^=avatarDecoration_]
+ { transition: .3s opacity; }
+
+
+
+
+[class^=markup_] ol
+ { margin-left: calc(2ch + var(--totalCharacters) * 1ch) !important; }
+
+
+[class^=overlayAvatar_]
+ { --xhairwidth: 2px;
+   box-shadow: none;
+   border-width: 2px;
+   &::before, &::after
+    { content: "";
+      background-color: oklch(0 0 0 /.001);
+      position: absolute;
+      backdrop-filter: invert(1); }
+   &::before
+    { height: 100%;
+      width: var(--xhairwidth);
+      left: calc(50% - (var(--xhairwidth)/2)); }
+   &::after
+    { width: 100%;
+      height: var(--xhairwidth);
+      top: calc(50% - (var(--xhairwidth)/2)); }}
+
+
+[class^=callContainer_]
+ { background: none !important; }
+[class*=overlayTitle_]
+ { opacity: 1 !important; }
+
+
+[class*=discriminator_]
+ { visibility: visible;
+   &::before { content: "("; }
+   &::after { content: ")"; }}
+
+
+[class^=channelInfo_]
+ { display: block !important; }
+
+[class^=channelActivityContainer_] [class^=avatarContainer_] > div::after
+ { content: attr(aria-label);
+   color: var(--text-normal);
+   position: absolute;
+   margin: 7px; } 
+
+
+[class^=categoryFade_]
+ { backdrop-filter: none !important; }
+#gif-picker-tab-panel [class^=result_]::after
+ { display: none; }
+
+/* End anebix-world/nvhhr-discordcss */
+
+/* Begin anebix-world/nvhhr-discordcss/snippets/pingedserversfirst.theme.css */
+
+
+[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label], 
+[id^=folder-items-] 
+ { display: flex; 
+   flex-direction: column; } 
+
+
+[data-list-id="guildsnav"] > [class^=scroller_] > [aria-label] :is([class^=listItem_],[class^=wrapper_]):has([class^=numberBadge_])
+ { order: -1; }
+
+
+
+/* End anebix-world/nvhhr-discordcss */
