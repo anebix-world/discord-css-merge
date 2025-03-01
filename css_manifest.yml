@@ -12,6 +12,9 @@ metadata:
     - custom
 
 snippets:
+  - repo: anebix-world/test
+    branch: main
+    css_path: css/discord-css-merge.css
   - repo: anebix-world/discord-css
     branch: main
     css_path: css/toggleable/add-textbar-nopermshake.css
