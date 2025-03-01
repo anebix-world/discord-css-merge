@@ -3,7 +3,7 @@ name: Notify Central Repo of CSS Update
 on:
   push:
     branches:
-      - main  # or whichever branch you want to monitor
+      - main  # Adjust if needed
 
 jobs:
   notify-central:
@@ -13,6 +13,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GH_PAT }}
-          repository: anebix-world/discord-css-merge  # Update with your central repo's owner/name
+          repository: anebix-world/discord-css-merge  # Use owner/repo format
           event-type: css-updated
           client-payload: '{"message": "CSS file updated in repository", "repo": "${{ github.repository }}"}'

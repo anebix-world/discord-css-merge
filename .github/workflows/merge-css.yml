@@ -54,7 +54,6 @@ jobs:
             if ! git diff --quiet "$output_file"; then
               git add "$output_file"
               git commit -m "Update combined CSS [skip ci]"
-              # Pull latest changes from remote before pushing
               git pull --rebase origin main
               git push origin main
             else
