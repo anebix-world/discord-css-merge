@@ -5,8 +5,14 @@ A tool to merge specified GitHub hosted CSS scripts together to help with perfor
 
 ## Docs
 
-### [css_manifest.yml](./merge/css_manifest.yml)
+
+Before using, set up a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) ([Fine Grain](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/) is best) and it as a [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) to the repo called `GH_PAT`.
+
+### css_manifest.yml
+[./merge/css_manifest.yml](./merge/css_manifest.yml)
+
 The base config file for the merger tool.
+
 #### Metadata
 Metadata tags for displaying extra info for those using GUI tools to add.
 
@@ -15,7 +21,6 @@ Adding the output CSS file to your QuickCSS (QCSS) via raw or import will **NOT*
 
 
 The structure goes as follows:
-
 
 ```
 metadata:
