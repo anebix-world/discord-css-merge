@@ -1,61 +1,61 @@
-Portions of this codebase were LLM generated.
-
 # Discord CSS Merge
-A tool to merge specified GitHub hosted CSS scripts together to help with performance and loading time
 
-## Docs
+A tool to merge specified GitHub‑hosted CSS scripts (or any CSS URLs) together to help with performance and loading time.
 
+*Portions of this codebase were LLM generated.*
 
-Before using, set up a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) ([Fine Grain](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/) is best) and it as a [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) to the repo called `GH_PAT`.
+## Overview
 
-### css_manifest.yml
-[./merge/css_manifest.yml](./merge/css_manifest.yml)
+Before using, set up a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) (a Fine‑Grained PAT is best) and add it as a [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) to your repository under the name `GH_PAT`.
 
-The base config file for the merger tool.
+This project now supports multiple configuration files—one per output CSS bundle. Each configuration file lives in the `/merge/config` folder and defines its own metadata and snippets. The merge script will process every config file in that folder, producing a separate merged CSS file for each.
 
-#### Metadata
-Metadata tags for displaying extra info for those using GUI tools to add.
-
-
-Adding the output CSS file to your QuickCSS (QCSS) via raw or import will **NOT** show this information.
-
-
-The structure goes as follows:
+## Repository Structure
 
 ```
+/merge
+  merge-css.js         # The merge script that processes config files and merges CSS.
+  /config              # Folder for individual configuration files.
+    anebix-main.yml    # Example config file for one merged CSS bundle.
+    second.yml         # Another config file for a separate CSS bundle.
+  
+/.github/workflows
+  merge-css.yml        # The GitHub Actions workflow file.
+```
+
+## Configuration Files
+
+Each configuration file in `/merge/config` describes one merged CSS bundle. The file is written in YAML and consists of two main parts: **metadata** and **snippets**.
+
+### Metadata
+
+The `metadata` block provides extra information about the CSS bundle. Note that when users import your output CSS (via raw URLs or `@import`), this metadata is not included in the final CSS—they only see it in GUI tools or documentation.
+
+The structure is as follows:
+
+```yaml
 metadata:
-  output:
-  name:
-  description:
-  author:
-  authorId:
-  source:
-  version:
-  website:
-  invite:
-  tags:
+  output: <file output path>      # e.g. "test/anebix-main.css" (relative) or "/test/anebix-main.css" (absolute, will be converted to repo-root)
+  name: <Theme Name>              # Displayed to "Online Theme" users only.
+  description: <Description>      # Displayed to "Online Theme" users only.
+  author: <Author Name>
+  authorId: <Author ID>
+  source: <Source Code URL>
+  version: <Version>
+  website: <Website URL>
+  invite: <Discord Invite URL>
+  tags:                           # List of tags shown in the Theme Library.
+    - tag1
+    - tag2
+  minify: <true/false>            # Optional flag to minify the merged output (default is false).
 ```
 
+**Example:**
 
-- `metadata`:    The parent node specifying the below values are for metadata
-- `output`:      File output, compatible with specifying path
-- `name`:        Visible to "Online Theme" users only. The displayed name of the CSS theme
-- `description`: Visible to "Online Theme" users only. The displayed description of the CSS theme
-- `author`:      Visible to "Online Theme" users only. The displayed author of the CSS theme
-- `authorId`:    Visible to "Online Theme" users only. The displayed user of the CSS theme
-- `source`:      Visible to "Online Theme" users only. The URL to the source code
-- `version`:     Visible to "Online Theme" users only. The displayed version
-- `website`:     Visible to "Online Theme" users only. The URL to the website of the author's choice
-- `invite`:      Visible to "Online Theme" users only. The URL invite to a Discord server of the author's choice
-- `tags`:        Visible to "Theme Library" users only. The tags displayed on the Theme Library plugin and on [discord-themes.com](https://discord-themes.com)
-
-
-##### Example Config
-
-```
+```yaml
 metadata:
   name: Anebix Main CSS
-  output: /css/anebix-main.css
+  output: /test/anebix-main.css
   description: All of the CSS ever needed, all in one package.
   author: Anebix
   authorId: "1249116126139519009"
@@ -66,51 +66,83 @@ metadata:
   tags:
     - theme
     - custom
+  minify: true
 ```
 
+### Snippets
 
-#### Snippets
-Snippets to add to merge into the final output file.
+The `snippets` block specifies the CSS sources to merge. There are two supported types:
 
+1. **Repo‑Based Snippets:**  
+   These fetch CSS files from GitHub repositories. You can list multiple sources from one repo by using a nested `sources` list. If no branch is specified, it defaults to `"main"`.
 
-Currently only working with GitHub.
+2. **Direct URL Snippets:**  
+   Use the `url` key to specify any CSS file from anywhere.
 
+The structure for repo‑based snippets:
 
-The structure goes as follows:
-
-
-
-```
+```yaml
 snippets:
-  - repo:
-    branch:
-    css_path:
-    order:
+  - repo: <repository in owner/repo format>
+    branch: <branch>           # Optional; defaults to "main" if omitted.
+    sources:
+      - css_path: <path to CSS file>
+        order: <order number>
+      - css_path: <another path>
+        order: <order number>
 ```
 
+And for direct URL snippets:
 
-- `snippets`: The parent node specifying the below values are for snippets to merge
-- `- repo`:   The GitHub repository that the file to merge from is in
-- `branch`:   The branch in the repository to get the file from
-- `css_path`: The path of the CSS file you want to merge from
-- `order`:    The order of the snippet, being able to raise and lower where it is in the merged list
-
-##### Example Config
-
-```
+```yaml
 snippets:
-  - repo: anebix-world/test
-    branch: main
-    css_path: css/discord-css-merge.css
-    order: 1
-  - repo: anebix-world/test
-    branch: main
-    css_path: css/discord-css-merge2.css
-    order: 2
+  - url: "https://example.com/some.css"
+    order: <order number>
 ```
 
+**Example (combining multiple sources):**
 
-Of course you can add as many as you want.
+```yaml
+snippets:
+  - repo: anebix-world/discord-css
+    branch: main
+    sources:
+      - css_path: css/anebix-tweaks.css
+        order: 1
+      - css_path: css/toggleable/add-servers-mentionedfirst.css
+        order: 2
+  - url: "https://example.com/another.css"
+    order: 3
+```
+
+## How It Works
+
+- **Multiple Config Files:**  
+  Each YAML file under `/merge/config` represents one merged CSS output. The merge script (`merge-css.js`) reads every config file in this folder, processes its metadata and snippets, and writes the merged content to the file specified in `metadata.output`.
+
+- **Flexible Sources:**  
+  You can mix repo‑based snippets (with multiple sources from one repository) and direct URLs. For repo snippets, if you omit the `branch`, `"main"` is assumed.
+
+- **Output Path:**  
+  The `output` value in the metadata may include a directory path. The merge script will create the directory if it doesn’t exist.
+
+- **Minification:**  
+  If `minify: true` is set in the metadata, the merged CSS output will be minified using a basic minification routine.
+
+- **Parallel Fetching with Retry & Caching:**  
+  CSS sources are fetched concurrently with retries (up to 3 attempts per source) and cached in-memory during the run, reducing network calls and speeding up the process.
+
+- **Stable Ordering:**  
+  Sources are sorted by their `order` value; if multiple sources share the same order, the one that appears first in the config file (preserved by an internal index) is processed first.
+
+## GitHub Actions Workflow
+
+The workflow file (located at `.github/workflows/merge-css.yml`) is set up to run:
+- On a repository dispatch event (e.g., from external triggers),
+- On a scheduled basis (midnight, 06:00, 12:00, and 18:00 UTC),
+- When a config file in `/merge/config` is updated, and
+- Manually via the "Run workflow" button.
 
 ## Contributing
-Please feel free to make any edits or improvements and submit issues or pull requests
+
+Feel free to make any edits or improvements and submit issues or pull requests.

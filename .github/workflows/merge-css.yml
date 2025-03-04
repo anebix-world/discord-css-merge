@@ -7,8 +7,8 @@ on:
     - cron: '0 0,6,12,18 * * *'  # Runs at midnight, 06:00, 12:00, and 18:00 UTC
   push:
     paths:
-      - merge/css_manifest.yml
-  workflow_dispatch:  # manual trigger
+      - merge/config/**/*.yml
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   merge-css:
@@ -40,47 +40,35 @@ jobs:
 
       - name: Set remote URL with PAT
         run: |
-          git remote set-url origin https://github.com/anebix-world/discord-css-merge.git
+          git remote set-url origin https://github.com/anebix-world/discord-css-merge-test.git
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
 
-      - name: Commit merged CSS file if changed
+      - name: Commit merged CSS files if changed
         run: |
-          # Extract output file from manifest (/merge/css_manifest.yml)
-          output_file=$(grep '^[[:space:]]*output:' merge/css_manifest.yml | head -n 1 | sed 's/.*output:[[:space:]]*//')
-          if [ -z "$output_file" ]; then
-            output_file="combined.css"
-          fi
-
-          # If output_file is absolute (starts with '/'), convert it relative to the repo root
-          if [[ "$output_file" == /* ]]; then
-             output_file="$(pwd)/${output_file:1}"
-          fi
-
-          echo "Using output file: $output_file"
-
-          # Ensure the directory exists and create the file if it doesn't exist
-          if [ ! -f "$output_file" ]; then
-            echo "$output_file not found, creating an empty file."
+          # Loop over each config file in merge/config to extract output files
+          for cfg in $(find merge/config -type f -name '*.yml'); do
+            output_file=$(grep '^[[:space:]]*output:' "$cfg" | head -n 1 | sed 's/.*output:[[:space:]]*//')
+            if [ -z "$output_file" ]; then
+              output_file="combined.css"
+            fi
+            # If output_file is absolute, convert it relative to repo root
+            if [[ "$output_file" == /* ]]; then
+              output_file="$(pwd)/${output_file:1}"
+            else
+              output_file="$(pwd)/$output_file"
+            fi
+            echo "Adding output file: $output_file"
             mkdir -p "$(dirname "$output_file")"
-            touch "$output_file"
-          fi
+            # Force-add the file (in case it is in .gitignore)
+            git add -f "$output_file"
+          done
 
-          # Check if the file is tracked
-          if ! git ls-files --error-unmatch "$output_file" > /dev/null 2>&1; then
-            echo "$output_file is untracked. Committing it."
-            git add "$output_file"
-            git commit -m "Add merged CSS [skip ci]"
+          # If any output file has changes staged, commit and push.
+          if ! git diff --cached --quiet; then
+            git commit -m "Update merged CSS files [skip ci]"
             git pull --rebase origin main
             git push origin main
           else
-            # File is tracked; check if there are changes
-            if ! git diff --quiet "$output_file"; then
-              git add "$output_file"
-              git commit -m "Update combined CSS [skip ci]"
-              git pull --rebase origin main
-              git push origin main
-            else
-              echo "No changes detected in $output_file."
-            fi
+            echo "No changes detected in merged CSS files."
           fi
