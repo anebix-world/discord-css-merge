@@ -4,11 +4,15 @@ A tool to merge specified GitHub‑hosted CSS scripts (or any CSS URLs) together
 
 *Portions of this codebase were LLM generated.*
 
+---
+
 ## Overview
 
 Before using, set up a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) (a Fine‑Grained PAT is best) and add it as a [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) to your repository under the name `GH_PAT`.
 
 This project now supports multiple configuration files—one per output CSS bundle. Each configuration file lives in the `/merge/config` folder and defines its own metadata and snippets. The merge script will process every config file in that folder, producing a separate merged CSS file for each.
+
+---
 
 ## Repository Structure
 
@@ -22,6 +26,8 @@ This project now supports multiple configuration files—one per output CSS bund
 /.github/workflows
   merge-css.yml        # The GitHub Actions workflow file.
 ```
+
+---
 
 ## Configuration Files
 
@@ -48,26 +54,31 @@ metadata:
     - tag1
     - tag2
   minify: <true/false>            # Optional flag to minify the merged output (default is false).
+  preserve_metadata: <true/false> # Optional flag to preserve the metadata header in the minified output (default is true).
 ```
 
 **Example:**
 
 ```yaml
 metadata:
-  name: Anebix Main CSS
+  name: anebix Main CSS
   output: /test/anebix-main.css
   description: All of the CSS ever needed, all in one package.
-  author: Anebix
+  author: anebix
   authorId: "1249116126139519009"
-  source: https://github.com/anebix-world/discord-css
-  version: "0.0.1"
-  website: https://github.com/anebix-world
+  source: http://github.com/anebix-world/discord-css
+  version: 0.0.2
+  website: https://anebix.neocities.org
   invite: vpQtzES4sn
   tags:
     - theme
     - custom
+    - merged
   minify: true
+  preserve_metadata: true
 ```
+
+---
 
 ### Snippets
 
@@ -79,7 +90,7 @@ The `snippets` block specifies the CSS sources to merge. There are two supported
 2. **Direct URL Snippets:**  
    Use the `url` key to specify any CSS file from anywhere.
 
-The structure for repo‑based snippets:
+The structure for repo‑based snippets is:
 
 ```yaml
 snippets:
@@ -104,16 +115,25 @@ snippets:
 
 ```yaml
 snippets:
-  - repo: anebix-world/discord-css
+  - repo: example-org/sample-css
     branch: main
     sources:
-      - css_path: css/anebix-tweaks.css
+      - css_path: styles/reset.css
         order: 1
-      - css_path: css/toggleable/add-servers-mentionedfirst.css
+      - css_path: styles/layout.css
         order: 2
-  - url: "https://example.com/another.css"
-    order: 3
+      - css_path: styles/theme.css
+        order: 3
+  - url: "https://cdn.example.com/extra-styles.css"
+    order: 4
+  - repo: another-org/awesome-css
+    # Branch omitted; defaults to "main"
+    sources:
+      - css_path: assets/typography.css
+        order: 5
 ```
+
+---
 
 ## How It Works
 
@@ -127,13 +147,15 @@ snippets:
   The `output` value in the metadata may include a directory path. The merge script will create the directory if it doesn’t exist.
 
 - **Minification:**  
-  If `minify: true` is set in the metadata, the merged CSS output will be minified using a basic minification routine.
+  If `minify: true` is set in the metadata, the merged CSS output will be minified using a basic minification routine. By default, the metadata header is preserved in the minified output (i.e. `preserve_metadata: true`). Set `preserve_metadata: false` to strip the metadata header from the final minified CSS.
 
 - **Parallel Fetching with Retry & Caching:**  
   CSS sources are fetched concurrently with retries (up to 3 attempts per source) and cached in-memory during the run, reducing network calls and speeding up the process.
 
 - **Stable Ordering:**  
   Sources are sorted by their `order` value; if multiple sources share the same order, the one that appears first in the config file (preserved by an internal index) is processed first.
+
+---
 
 ## GitHub Actions Workflow
 
@@ -142,6 +164,8 @@ The workflow file (located at `.github/workflows/merge-css.yml`) is set up to ru
 - On a scheduled basis (midnight, 06:00, 12:00, and 18:00 UTC),
 - When a config file in `/merge/config` is updated, and
 - Manually via the "Run workflow" button.
+
+---
 
 ## Contributing
 
