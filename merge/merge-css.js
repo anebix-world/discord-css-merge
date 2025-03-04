@@ -52,8 +52,8 @@ async function fetchCSSWithRetry(url, retries = 3) {
 // A simple CSS minifier (basic implementation)
 function minifyCSS(css) {
   return css
-  .replace(/\n/g, ' ')             // Remove newlines
-  .replace(/\s+/g, ' ')            // Collapse whitespace
+  .replace(/\n/g, ' ')    // Remove newlines
+  .replace(/\s+/g, ' ')    // Collapse whitespace
   .trim();
 }
 
@@ -161,8 +161,7 @@ function processSnippet(snippet) {
         mergedCSS += `\n/* End ${fetched.url} */\n`;
       }
 
-      // If the config's metadata.minify flag is true, minify the merged CSS output.
-      // By default, the metadata header is preserved unless metadata.preserve_metadata is set to false.
+      // If minification is enabled, process accordingly.
       if (metadata.minify === true) {
         console.log("Minifying merged CSS as per config flag.");
         let preserveMetadata = true;
@@ -170,14 +169,15 @@ function processSnippet(snippet) {
           preserveMetadata = false;
         }
         if (preserveMetadata) {
-          const headerMatch = mergedCSS.match(/^\/\*\*[\s\S]*?\*\/\n*/);
-          let header = "";
-          let cssToMinify = mergedCSS;
-          if (headerMatch) {
-            header = headerMatch[0];
-            cssToMinify = mergedCSS.substring(header.length);
+          // Locate the end of the metadata header (first occurrence of "*/")
+          const headerEndIndex = mergedCSS.indexOf('*/');
+          if (headerEndIndex !== -1) {
+            const header = mergedCSS.substring(0, headerEndIndex + 2);
+            const cssToMinify = mergedCSS.substring(headerEndIndex + 2);
+            mergedCSS = header + minifyCSS(cssToMinify);
+          } else {
+            mergedCSS = minifyCSS(mergedCSS);
           }
-          mergedCSS = header + minifyCSS(cssToMinify);
         } else {
           mergedCSS = minifyCSS(mergedCSS);
         }
